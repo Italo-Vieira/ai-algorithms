@@ -8,6 +8,7 @@ class State
   friend class SearchAlgorithm;
   public:
     State(State* father){this->father = father;};
+    virtual ~State(){};
     virtual float getHeuristicValue(){return 1;};
     virtual float getStateWeight(){return 1;};
     virtual bool equals(State*)=0;

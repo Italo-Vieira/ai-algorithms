@@ -1,5 +1,4 @@
 #include <iostream>
-#include "State.h"
 #include "SearchAlgorithm.h"
 
 class MissAndCannState:public State{
@@ -67,9 +66,6 @@ bool MissAndCannState::isObjective(){
 
 main(){
   MissAndCannState* a=new MissAndCannState(3,3,1,0);
-  MissAndCannState* obj = (MissAndCannState*) SearchAlgorithm::BFS((State*)a);
-  while(obj!=0){
-    std::cout<<obj->missionaries<<" "<<obj->cannibals<<"\n";
-    obj=(MissAndCannState*)obj->getFather();
-  }
+  SearchAlgorithm::BFS((State*)a);
+
 }
