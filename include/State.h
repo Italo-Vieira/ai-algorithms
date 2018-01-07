@@ -2,10 +2,10 @@
 #define STATE_H
 #include <list>
 using std::list;
-class SearchAlgorithm;
+class SearchAlgorithms;
 class State
 {
-  friend class SearchAlgorithm;
+  friend class SearchAlgorithms;
   public:
     State(State* father){this->father = father;};
     virtual ~State(){};
