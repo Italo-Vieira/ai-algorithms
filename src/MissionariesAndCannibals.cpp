@@ -1,8 +1,8 @@
 #include <iostream>
 #include "SearchAlgorithms.h"
 
-#define NMISS 10000
-#define NCANN 10000
+#define NMISS 3
+#define NCANN 3
 class MissAndCannState:public State{
 public:
   //On the wrong side
@@ -69,10 +69,10 @@ bool MissAndCannState::isObjective(){
 }
 
 main(){
-/*  MissAndCannState* a=new MissAndCannState(NMISS,NCANN,1,0);
+  MissAndCannState* a=new MissAndCannState(NMISS,NCANN,1,0);
   SearchAlgorithms::BFS((State*)a);
    a=new MissAndCannState(NMISS,NCANN,1,0);
-  SearchAlgorithms::DFS((State*)a);*/
+  //SearchAlgorithms::DFS((State*)a);
 
   /*sem_t* sem = (sem_t*) malloc(sizeof(sem_t));
   sem_init(sem,0,1);
@@ -108,5 +108,38 @@ main(){
     }
     i++;
   }*/
-  
+/**  #ifdef _OPENMP
+  #endif
+  {
+    int *i= new int[omp_get_team_size(omp_get_level())];
+    int * it= i;
+    int * read = i;
+    int a = 0;
+  std::cout<<omp_get_num_threads();
+  #pragma omp parallel
+  #pragma omp task if(a<2)
+  {
+    a++;
+ int thread_num = omp_get_thread_num();
+    #pragma omp critical
+    {
+      *it = thread_num;
+      std::cout<<"entrou: "<<thread_num<<"\n";
+      it++;
+    }
+    for(int j=0;j<30;j++);
+    #pragma omp critical
+    std::cout<<"oh geez\n";
+
+    while(*read != thread_num){
+      #pragma omp taskyield
+    }
+
+    #pragma omp critical
+    std::cout<<"saiu: "<<thread_num<<"\n";
+    #pragma omp atomic update
+      read++;
+
+  }
+}**/
 }

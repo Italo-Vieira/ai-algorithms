@@ -1,5 +1,10 @@
 #ifndef STATE_H
 #define STATE_H
+
+#ifdef _OPENMP
+#include <omp.h>
+#endif
+
 #include <list>
 using std::list;
 class SearchAlgorithms;

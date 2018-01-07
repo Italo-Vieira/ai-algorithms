@@ -2,6 +2,8 @@
 #include "State.h"
 #include "Path.h"
 
+#define lesser(X,Y) (X>Y) ? Y : X
+
 typedef list<State*>::iterator iterator;
 class SearchAlgorithms{
   public:

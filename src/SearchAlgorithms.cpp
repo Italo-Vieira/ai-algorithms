@@ -20,7 +20,7 @@ void SearchAlgorithms::removeEquals(list<State*> &from, list<State*> &in){
 
 void SearchAlgorithms::freeList(list<State*> &toBeFreed){
   for(iterator it = toBeFreed.begin(); it != toBeFreed.end();){
-    //delete *it;
+     delete *it;
      it = toBeFreed.erase(it);
    }
 }
@@ -30,36 +30,58 @@ Path* SearchAlgorithms::BFS(State *state){
   list<State*>  closedStates;
   list<State*>  childrens;
   stateQueue.push_back(state);
-
+  Path *path;
   while(!stateQueue.empty()){
 
-    State *currentState =  stateQueue.front();
-    stateQueue.pop_front();
+    #ifdef _OPENMP
+    int taskNum;
+    #pragma omp parallel
+    #pragma omp single
+    {
+      int queueSize = stateQueue.size();
+      int num_threads = omp_get_team_size(omp_get_level());
+      taskNum = (queueSize > num_threads) ? num_threads : queueSize;
+    }
+
+    #pragma omp for ordered
+    for (int i = 0; i < taskNum; i++ ){
+    #endif
+
+    State *currentState ;
+    #pragma omp ordered
+    {
+    currentState =  stateQueue.front();
+    closedStates.splice(closedStates.end(),stateQueue,stateQueue.begin());
+    }
+
+    #pragma single
     if(currentState->isObjective()){
+      std::cout<<"\nyoo\n";
       Path *path = new Path();
       while(currentState != 0){
         path->addNode(currentState);
         currentState = currentState->father;
       }
-
-      freeList(closedStates);
-      freeList(stateQueue);
-      return path;
-    }
+    }else{
 
     currentState->GenerateChildrens();
     childrens = currentState->childrens;
-   
+
+    #pragma omp ordered
+    {
     removeEquals(childrens, stateQueue);
     removeEquals(childrens, closedStates);
-
     stateQueue.splice(stateQueue.end(), childrens);
-    closedStates.push_back(currentState);
+    }
+    }
+    #ifdef _OPENMP
+    }
+    #endif
   }
 
   freeList(closedStates);
-
-  return 0;
+  freeList(stateQueue);
+  return path;
 }
 
 
