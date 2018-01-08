@@ -67,7 +67,7 @@ bool MissAndCannState::equals(State* state){
 bool MissAndCannState::isObjective(){
   return !(missionaries+cannibals+boat);
 }
-
+/*
 main(){
   MissAndCannState* a=new MissAndCannState(NMISS,NCANN,1,0);
   SearchAlgorithms::BFS((State*)a);
@@ -142,4 +142,4 @@ main(){
 
   }
 }**/
-}
+//}

@@ -4,9 +4,12 @@ class Path{
   public:
     Path();
     void addNode(State* node){
-      path.push_front(node);
+      path.push_back(node);
       totalWeight += node->getStateWeight();
       nodeCount++;
+    }
+    State* getObjective(){
+      return *path.begin();
     }
   private:
     list<State*> path;
