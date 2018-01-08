@@ -67,79 +67,14 @@ bool MissAndCannState::equals(State* state){
 bool MissAndCannState::isObjective(){
   return !(missionaries+cannibals+boat);
 }
-/*
+
 main(){
   MissAndCannState* a=new MissAndCannState(NMISS,NCANN,1,0);
-  SearchAlgorithms::BFS((State*)a);
-   a=new MissAndCannState(NMISS,NCANN,1,0);
-  //SearchAlgorithms::DFS((State*)a);
-
-  /*sem_t* sem = (sem_t*) malloc(sizeof(sem_t));
-  sem_init(sem,0,1);
-  {
-    int j=1,k=10;
-    #pragma omp parallel private(j)
-    while(j++,j<k){
-      #pragma omp single nowait
-      for(int i = 0; i< 1 ; i++){
-        for(int h = 0;h<4000;h++);
-        #pragma omp critical
-        {
-        //  sem_wait(sem);
-          std::cout<<j<<"ha "<<omp_get_thread_num();
-          std::cout<<"\n";
-
-        }
-      }
-
-    }
+  Path* path = SearchAlgorithms::BFS((State*)a);
+  if(path){
+    MissAndCannState* mc = (MissAndCannState*) path->getObjective();
+    std::cout<<mc->missionaries<<" "<<mc->cannibals<<"\n";
   }
-  int i=0;
-  int k=10;
-  #pragma omp parallel
-  #pragma omp master
-  while(i<k){
-    #pragma omp task
-    #pragma omp parallel
-    #pragma omp single nowait
-    {
-      #pragma omp critical
-      std::cout<<"oi "<<i<<"\n";
-    }
-    i++;
-  }*/
-/**  #ifdef _OPENMP
-  #endif
-  {
-    int *i= new int[omp_get_team_size(omp_get_level())];
-    int * it= i;
-    int * read = i;
-    int a = 0;
-  std::cout<<omp_get_num_threads();
-  #pragma omp parallel
-  #pragma omp task if(a<2)
-  {
-    a++;
- int thread_num = omp_get_thread_num();
-    #pragma omp critical
-    {
-      *it = thread_num;
-      std::cout<<"entrou: "<<thread_num<<"\n";
-      it++;
-    }
-    for(int j=0;j<30;j++);
-    #pragma omp critical
-    std::cout<<"oh geez\n";
 
-    while(*read != thread_num){
-      #pragma omp taskyield
-    }
 
-    #pragma omp critical
-    std::cout<<"saiu: "<<thread_num<<"\n";
-    #pragma omp atomic update
-      read++;
-
-  }
-}**/
-//}
+}

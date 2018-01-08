@@ -145,10 +145,6 @@ int main(int argc, char* argv[]){
     NQueens* q = (NQueens*) p->getObjective();
     q->printBoard();
   }
-  list<int> a;
-  list<int>::iterator it = a.begin();
-  --it;
-  --it;
-  it++;
-  it++;
+
+  
 }

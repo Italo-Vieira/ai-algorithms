@@ -12,7 +12,7 @@ class State
 {
   friend class SearchAlgorithms;
   public:
-    State(State* father){this->father = father;};
+    State(State* father){this->father = father;delflag=true;};
     virtual ~State(){};
     virtual float getHeuristicValue(){return 1;};
     virtual float getStateWeight(){return 1;};
@@ -24,6 +24,7 @@ class State
     virtual bool isObjective()=0;
     void addChildren(State* children){ childrens.push_back(children);};
   private:
+    bool delflag;
     State* father;
     list<State*> childrens;
 };
