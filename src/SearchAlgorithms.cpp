@@ -96,13 +96,11 @@ Path* SearchAlgorithms::DFS(State *state){
   list<State*>  childrens;
   stateStack.push_back(state);
   while(!stateStack.empty()){
-    std::cout<<"entrou\n";
     iterator currIt = stateStack.begin();
     State *currentState =  *currIt;
 
     if(currentState->isObjective()){
       Path *path = new Path();
-      std::cout<<"\nfound\n";
       while(currentState != 0){
         path->addNode(currentState);
         stateStack.erase(currIt);
@@ -113,18 +111,16 @@ Path* SearchAlgorithms::DFS(State *state){
       freeList(stateStack);
       return path;
     }
+
     stateStack.pop_front();
     closedStates.push_back(currentState);
-    std::cout<<"pregenerate\n";
     currentState->GenerateChildrens();
     childrens = currentState->childrens;
-    std::cout<<"haha\n";
+
     removeEquals(childrens, stateStack);
     removeEquals(childrens, closedStates);
-    std::cout<<"pos_Remove\n";
     iterator a = stateStack.begin();
     stateStack.splice(a, childrens);
-    std::cout<<"saindo\n";
   }
   std::cout<<"saiu";
 
