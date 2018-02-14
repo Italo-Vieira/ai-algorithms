@@ -146,5 +146,5 @@ int main(int argc, char* argv[]){
     q->printBoard();
   }
 
-  
+
 }

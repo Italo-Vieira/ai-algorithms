@@ -24,7 +24,7 @@ $(ODir)/sin_nqueens:  $(INC) $(OBJ) $(SRCDir)/NQueens.cpp
 	g++ -I\$(IDir) -o $@ $(OBJ) $(SRCDir)/NQueens.cpp
 
 $(ODir)/missandcann:  $(INC) $(OBJ) $(SRCDir)/MissionariesAndCannibals.cpp
-	g++ $(Flags) -o $@ $(OBJ) $(SRCDir)/MissionariesAndCannibals.cpp
+	g++ -g $(Flags) -o $@ $(OBJ) $(SRCDir)/MissionariesAndCannibals.cpp
 
 $(ODir)/sin_missandcann:  $(INC) $(OBJ) $(SRCDir)/MissionariesAndCannibals.cpp
 	g++ -I\$(IDir) -o $@ $(OBJ) $(SRCDir)/MissionariesAndCannibals.cpp

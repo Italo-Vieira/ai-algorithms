@@ -1,16 +1,19 @@
 #include "SearchAlgorithms.h"
 
 void SearchAlgorithms::removeEquals(list<State*> &from, list<State*> &in){
+  iterator from_end = from.end();
+  iterator in_end = in.end();
   #pragma omp parallel
   #pragma omp master
-  for(iterator itf = from.begin(); itf != from.end();){
-    iterator aux = itf++;
+  for(iterator itf = from.begin(); itf != from_end;){
+    iterator aux = itf;
+    ++itf;
+    State* test = *aux;
     #pragma omp task
     #pragma omp parallel private(itf)
     #pragma omp single nowait
-    for(iterator iti = in.begin(); iti != in.end(); iti++){
-
-      if((*aux)->equals(*iti)){
+    for(iterator iti = in.begin(); iti != in_end; ++iti){
+      if(test->equals(*iti)){
         delete *aux;
         #pragma omp critical(removeFromList)
         aux = --from.erase(aux);
